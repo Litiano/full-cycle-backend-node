@@ -1,6 +1,6 @@
 import { Category, CategoryProperties } from './category';
 import { omit } from 'lodash';
-import { v4 as uuidV4, validate as uuidValidate } from 'uuid';
+import { v4 as uuidV4 } from 'uuid';
 import UniqueEntityId from '../../../@seedwork/domain/value-objects/unique-entity-id.vo';
 
 describe('Category Tests', () => {
@@ -43,9 +43,12 @@ describe('Category Tests', () => {
         });
     });
 
-    test('getter of name field', () => {
+    test('getter and setter of name field', () => {
         const category = new Category({name: 'Movie'});
         expect(category.name).toBe('Movie');
+
+        category['name'] = 'other name';
+        expect(category.name).toBe('other name');
     });
 
     test('getter and setter of description prop', () => {
@@ -109,5 +112,30 @@ describe('Category Tests', () => {
                 expect(category.uniqueEntityId).toBe(item.id);
             }
         });
+    });
+
+    test('should update a category', () => {
+        const category = new Category({name: 'Movie'});
+        category.update({name: 'Documentary', description: 'some description'});
+        expect(category.name).toBe('Documentary');
+        expect(category.description).toBe('some description');
+    });
+
+    it('should active a category', () => {
+        const category = new Category({
+            name: 'Filmes',
+            is_active: false,
+        });
+        category.activate();
+        expect(category.is_active).toBeTruthy();
+    });
+
+    it('should deactive a category', () => {
+        const category = new Category({
+            name: 'Filmes',
+            is_active: true,
+        });
+        category.deactivate();
+        expect(category.is_active).toBeFalsy();
     });
 });
