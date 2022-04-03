@@ -1,5 +1,4 @@
 import ValueObject from '../value-object';
-import { deepFreeze } from '../../utils/object';
 
 class StubValueObject extends ValueObject {
 
@@ -40,8 +39,8 @@ describe('ValueObject', () => {
         const obj = {prop1: 'value1', deep: {prop2: 'value2', prop3: new Date()}};
         const vo = new StubValueObject(obj);
 
-        expect(() => (vo as any).value.prop1 = 'mudou').toThrow("Cannot assign to read only property 'prop1' of object '#<Object>'");
-        expect(() => (vo as any).value.deep.prop2 = 'mudou aqui').toThrow("Cannot assign to read only property 'prop2' of object '#<Object>'")
+        expect(() => (vo as any).value.prop1 = 'mudou').toThrow('Cannot assign to read only property \'prop1\' of object \'#<Object>\'');
+        expect(() => (vo as any).value.deep.prop2 = 'mudou aqui').toThrow('Cannot assign to read only property \'prop2\' of object \'#<Object>\'');
         expect(typeof vo).toBe('object');
         expect(typeof vo.value.deep.prop3).toBe('object');
         expect(vo.value.deep.prop3).toBeInstanceOf(Date);

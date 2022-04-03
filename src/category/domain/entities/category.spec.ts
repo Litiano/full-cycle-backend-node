@@ -4,10 +4,13 @@ import { v4 as uuidV4 } from 'uuid';
 import UniqueEntityId from '../../../@seedwork/domain/value-objects/unique-entity-id.vo';
 
 describe('Category Tests', () => {
+    beforeEach(() => {
+        Category.validate = jest.fn();
+    })
     test('constructor of category', () => {
         let category = new Category({name: 'Movie'});
         let props = omit(category.props, 'created_at');
-
+        expect(Category.validate).toHaveBeenCalledTimes(1);
         expect(props).toStrictEqual({
             name: 'Movie',
             description: null,
@@ -116,9 +119,10 @@ describe('Category Tests', () => {
 
     test('should update a category', () => {
         const category = new Category({name: 'Movie'});
-        category.update({name: 'Documentary', description: 'some description'});
+        category.update('Documentary', 'some description');
         expect(category.name).toBe('Documentary');
         expect(category.description).toBe('some description');
+        expect(Category.validate).toHaveBeenCalledTimes(2);
     });
 
     it('should active a category', () => {

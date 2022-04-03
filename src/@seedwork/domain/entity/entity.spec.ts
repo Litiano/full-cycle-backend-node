@@ -32,6 +32,6 @@ describe('Entity Unit Test', () => {
         expect(entity.toJSON()).toStrictEqual({
             id: uniqueEntityId.value,
             ...arrange,
-        })
+        });
     });
 });
