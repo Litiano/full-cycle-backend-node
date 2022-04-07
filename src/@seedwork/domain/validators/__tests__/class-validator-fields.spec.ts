@@ -15,7 +15,7 @@ describe('ClassValidatorFields', () => {
     it('should validate with errors', () => {
         const spyValidateSync = jest.spyOn(libClassValidator, 'validateSync');
         spyValidateSync.mockReturnValue([{
-            property: 'field', constraints: { isRequired: 'some error' }
+            property: 'field', constraints: {isRequired: 'some error'},
         }]);
 
 
@@ -24,7 +24,7 @@ describe('ClassValidatorFields', () => {
         expect(spyValidateSync).toHaveBeenCalledTimes(1);
 
         expect(validator.validatedData).toBeNull();
-        expect(validator.errors).toStrictEqual({ field: ['some error']});
+        expect(validator.errors).toStrictEqual({field: ['some error']});
     });
 
     it('should validate without errors', () => {
@@ -32,10 +32,10 @@ describe('ClassValidatorFields', () => {
         spyValidateSync.mockReturnValue([]);
 
         const validator = new StubClassValidatorFields();
-        expect(validator.validate({ field: 'value' })).toBeTruthy();
+        expect(validator.validate({field: 'value'})).toBeTruthy();
         expect(spyValidateSync).toHaveBeenCalledTimes(1);
 
-        expect(validator.validatedData).toStrictEqual({ field: 'value' });
+        expect(validator.validatedData).toStrictEqual({field: 'value'});
         expect(validator.errors).toBeNull();
     });
 });

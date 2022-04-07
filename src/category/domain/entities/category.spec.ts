@@ -6,7 +6,7 @@ import UniqueEntityId from '../../../@seedwork/domain/value-objects/unique-entit
 describe('Category Tests', () => {
     beforeEach(() => {
         Category.validate = jest.fn();
-    })
+    });
     test('constructor of category', () => {
         let category = new Category({name: 'Movie'});
         let props = omit(category.props, 'created_at');

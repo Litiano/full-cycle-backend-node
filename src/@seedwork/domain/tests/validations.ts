@@ -16,26 +16,26 @@ expect.extend({
                 return {
                     pass: false,
                     message: () => 'The data is valid',
-                }
+                };
             } catch (e) {
                 const error = e as EntityValidationError;
 
                 return assertContainsErrors(error.error, expected);
             }
         } else {
-            const { validator, data } = received;
+            const {validator, data} = received;
             const isValid = validator.validate(data);
             if (isValid) {
                 return {
                     pass: false,
                     message: () => 'The data is valid',
-                }
+                };
             }
 
             return assertContainsErrors(validator.errors, expected);
         }
-    }
-})
+    },
+});
 
 function success() {
     return {pass: true, message: () => ''};
