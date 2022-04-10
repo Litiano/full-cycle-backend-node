@@ -3,7 +3,10 @@ services:
   app:
     build: .
     volumes:
-      - ".:/home/node/app"
-      - ".docker/zsh/.p10k.zsh:/home/node/.p10k.zsh:delegated"
-      - ".docker/zsh/history:/home/node/zsh:delegated"
+      - '.:/home/node/app'
+      - '.docker/zsh/.p10k.zsh:/home/node/.p10k.zsh:delegated'
+      - '.docker/zsh/history:/home/node/zsh:delegated'
     container_name: fullcycle-app-typescript
+    ports:
+      - '5678:5678'
+      - '9229:9229'

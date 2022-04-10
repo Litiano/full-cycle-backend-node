@@ -1,5 +1,4 @@
 import { Category } from './category';
-import EntityValidationError from '../../../@seedwork/domain/errors/entity-validation-error';
 
 describe('Category Integration Tests', () => {
     describe('create method', () => {
@@ -77,23 +76,54 @@ describe('Category Integration Tests', () => {
         const category = new Category({name: 'movie', description: 'desc'});
 
         it('should a invalid category when create', () => {
-            expect(() => category.update(null as any, null as any)).toThrow(new EntityValidationError('The name is required'));
+            expect(() => category.update(null as any, null as any))
+                .containsErrorMessages({
+                    name: [
+                        'name should not be empty',
+                        'name must be a string',
+                        'name must be shorter than or equal to 255 characters',
+                    ],
+                });
 
-            expect(() => category.update('', '')).toThrow(new EntityValidationError('The name is required'));
+            expect(() => category.update('', ''))
+                .containsErrorMessages({
+                    name: [
+                        'name should not be empty',
+                    ],
+                });
 
-            expect(() => category.update(5 as any, '')).toThrow(new EntityValidationError('The name must be a string'));
+            expect(() => category.update(5 as any, ''))
+                .containsErrorMessages({
+                    name: [
+                        'name must be a string',
+                        'name must be shorter than or equal to 255 characters',
+                    ],
+                });
 
             expect(() => category.update('t'.repeat(256), ''))
-                .toThrow(new EntityValidationError('The name must be less or equal than 255 characters'));
+                .containsErrorMessages({
+                    name: [
+                        'name must be shorter than or equal to 255 characters',
+                    ],
+                });
         });
 
         it('should a invalid category using description property', () => {
             const category = new Category({name: 'movie', description: 'desc'});
             expect(() => category.update('movie', 5 as any))
-                .toThrow(new EntityValidationError('The description must be a string'));
+                .containsErrorMessages({
+                    description: [
+                        'description must be a string',
+                        'description must be shorter than or equal to 255 characters',
+                    ],
+                });
 
             expect(() => category.update('movie', 't'.repeat(256)))
-                .toThrow(new EntityValidationError('The description must be less or equal than 255 characters'));
+                .containsErrorMessages({
+                    description: [
+                        'description must be shorter than or equal to 255 characters',
+                    ],
+                });
         });
 
         it('should a valid category', () => {

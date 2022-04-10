@@ -3,7 +3,7 @@ import { validateSync } from 'class-validator';
 
 export abstract class ClassValidatorFields<PropsValidated> implements ValidatorFieldsInterface<PropsValidated> {
     errors: FieldsErrors = null;
-    validatedData: any = null;
+    validatedData: PropsValidated = null;
 
     validate(data: any): boolean {
         const errors = validateSync(data);
