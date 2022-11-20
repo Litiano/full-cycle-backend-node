@@ -3,7 +3,7 @@ import Entity from '../entity/entity';
 import UniqueEntityId from '../value-objects/unique-entity-id.vo';
 import NotFoundError from '../errors/not-found-error';
 
-export default abstract class InMemoryRepository<E extends Entity> implements RepositoryInterface<E>{
+export abstract class InMemoryRepository<E extends Entity> implements RepositoryInterface<E>{
     items: E[] = [];
 
     async delete(id: string | UniqueEntityId): Promise<void> {

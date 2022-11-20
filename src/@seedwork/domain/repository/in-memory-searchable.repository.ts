@@ -1,11 +1,12 @@
 import Entity from '../entity/entity';
 import { SearchableRepositoryInterface } from './searchable-repository-interface';
-import InMemoryRepository from './in-memory.repository';
-import SearchParams from './search-params';
+import { InMemoryRepository } from './in-memory.repository';
+import SearchParams, { SortDirection } from './search-params';
 import SearchResult from './search-result';
 
 export default abstract class InMemorySearchableRepository<E extends Entity>
     extends InMemoryRepository<E> implements SearchableRepositoryInterface<E, any, any> {
+    sortableFields: string[] = [];
 
     async search(props: SearchParams): Promise<SearchResult<E>> {
         const itemsFiltered = await this.applyFilter(this.items, props.filter);
@@ -25,7 +26,28 @@ export default abstract class InMemorySearchableRepository<E extends Entity>
 
     protected abstract applyFilter(items: E[], filter: string | null): Promise<E[]>;
 
-    protected abstract applySort(items: E[], sort: string | null, sort_dir: string | null): Promise<E[]>;
+    protected async applySort(items: E[], sort: string | null, sort_dir: SortDirection | null): Promise<E[]> {
+        if (!sort || !this.sortableFields.includes(sort)) {
+            return items;
+        }
 
-    protected abstract applyPaginate(items: E[], page: SearchParams['page'], per_page: SearchParams['per_page']): Promise<E[]>;
+        return [...items].sort((a, b) => {
+            if (a.props[sort] < b.props[sort]) {
+                return sort_dir === 'asc' ? -1 : 1;
+            }
+
+            if (a.props[sort] > b.props[sort]) {
+                return sort_dir === 'asc' ? 1 : -1;
+            }
+
+            return 0;
+        })
+    }
+
+    protected async applyPaginate(items: E[], page: SearchParams['page'], per_page: SearchParams['per_page']): Promise<E[]> {
+        const start = (page - 1) * per_page;
+        const end = start + per_page;
+
+        return items.slice(start, end);
+    }
 }
