@@ -52,6 +52,9 @@ describe('Category Tests', () => {
 
         category['name'] = 'other name';
         expect(category.name).toBe('other name');
+
+        category['name'] = null;
+        expect(category.name).toBeNull();
     });
 
     test('getter and setter of description prop', () => {
@@ -86,6 +89,9 @@ describe('Category Tests', () => {
 
         category['is_active'] = true;
         expect(category.is_active).toBeTruthy();
+
+        category['is_active'] = null;
+        expect(category.is_active).toBeNull();
     });
 
     test('getter created_at prop', () => {

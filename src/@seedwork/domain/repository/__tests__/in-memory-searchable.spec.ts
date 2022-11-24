@@ -13,7 +13,7 @@ class StubEntity extends Entity<StubEntityProps> {
 }
 
 class StubInMemorySearchableRepository extends InMemorySearchableRepository<StubEntity> {
-  sortableFields: string[] = ['name'];
+  sortableFields: string[] = ['name', 'price'];
 
   protected async applyFilter(items: StubEntity[], filter: string | null): Promise<StubEntity[]> {
     if(!filter) {
@@ -92,6 +92,9 @@ describe('InMemorySearchableRepository Unit Tests', () => {
 
       itemsSorted = await repository['applySort'](items, 'name', 'desc');
       expect(itemsSorted).toStrictEqual([items[2], items[0], items[1]]);
+
+      itemsSorted = await repository['applySort'](items, 'price', 'desc');
+      expect(itemsSorted).toStrictEqual([items[0], items[1], items[2]]);
     })
   });
 

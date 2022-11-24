@@ -22,9 +22,11 @@ describe('UpdateCategoryUseCase Unit Tests', () => {
     const entity = new Category({ name: 'category 1' });
     repository.items = [entity];
     const spyUpdate = jest.spyOn(repository, 'update');
-
-    // @ts-ignore
-    const arrange: any[] = [
+    type Arrange = {
+      entity: { id: string, name: string, description?: null | string, is_active?: boolean },
+      expected: { id: string, name: string, description: string | null, is_active: boolean, created_at: Date, }
+    }
+    const arrange: Arrange[] = [
       {
         entity: { id: entity.id, name: 'test' },
         expected: {
