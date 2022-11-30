@@ -7,6 +7,7 @@ services:
       - '.docker/zsh/.p10k.zsh:/home/node/.p10k.zsh:delegated'
       - '.docker/zsh/history:/home/node/zsh:delegated'
     container_name: fullcycle-app-typescript
+    command: ./.docker/start.sh
     ports:
       - '5678:5678'
       - '9229:9229'

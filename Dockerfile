@@ -1,6 +1,6 @@
 FROM node:16-slim
 
-RUN apt update && apt install -y --no-install-recommends git ca-certificates default-jre zsh curl wget
+RUN apt update && apt install -y --no-install-recommends git ca-certificates default-jre zsh curl wget procps
 
 # openjdk-11-jre
 # ENV JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
@@ -26,4 +26,4 @@ RUN echo '[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' >> ~/.zshrc && \
 
 #RUN echo 'ZSH_THEME="powerlevel10k/powerlevel10k"' >> ~/.zshrc
 
-CMD ["sh", "-c", "npm install && tail -f /dev/null"]
+CMD ["tail -f /dev/null"]
