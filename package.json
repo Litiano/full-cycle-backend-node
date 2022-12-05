@@ -10,8 +10,8 @@
     "./src/nest"
   ],
   "scripts": {
-    "prestart:dev": "npm run build -w backend-node",
-    "start:dev": "npm run build:w -w backend-node & npm run start:dev -w nest",
+    "prestart:dev": "npm run build -w @litiano/backend-node",
+    "start:dev": "npm run build:w -w @litiano/backend-node & npm run start:dev -w nest",
     "test": "jest"
   },
   "repository": {

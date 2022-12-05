@@ -1,7 +1,7 @@
-import { GetCategoryUseCase } from '#category/application';
-import CategoryInMemoryRepository from '#category/infra/repository/category-in-memory.repository';
-import NotFoundError from '#seedwork/domain/errors/not-found-error';
-import { Category } from '#category/domain';
+import { GetCategoryUseCase } from '../../../application';
+import CategoryInMemoryRepository from '../../../infra/repository/category-in-memory.repository';
+import NotFoundError from '../../../../@seedwork/domain/errors/not-found-error';
+import { Category } from '../../../domain';
 
 describe('GetCategoryUseCase Unit Tests', () => {
   let useCase: GetCategoryUseCase.UseCase;

@@ -1,6 +1,6 @@
-import { CategoryOutputDto, CategoryOutputMapper } from '#category/application';
-import UseCaseInterface from '#seedwork/application/use-case.interface';
-import { CategoryRepository } from '#category/domain';
+import { CategoryOutputDto, CategoryOutputMapper } from '../../application';
+import UseCaseInterface from '../../../@seedwork/application/use-case.interface';
+import { CategoryRepository } from '../../domain';
 
 export namespace GetCategoryUseCase {
   export class UseCase implements UseCaseInterface<Input, Output> {

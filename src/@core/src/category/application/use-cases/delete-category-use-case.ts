@@ -1,5 +1,5 @@
-import UseCaseInterface from '#seedwork/application/use-case.interface';
-import { CategoryRepository } from '#category/domain';
+import UseCaseInterface from '../../../@seedwork/application/use-case.interface';
+import { CategoryRepository } from '../../domain';
 
 export namespace DeleteCategoryUseCase {
   export class UseCase implements UseCaseInterface<Input, Output>{
